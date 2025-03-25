@@ -1,8 +1,8 @@
 import sys
 from os import symlink, remove, makedirs
 from os.path import join, dirname, basename, exists, islink, relpath
-from log import logger
-from os_symlink import relpath_to_style, current_os, get_files_relpath
+from .log import logger
+from .os_symlink import relpath_to_style, current_os, get_files_relpath
 
 
 def enable_nginx_conf(conf_file_path: str):

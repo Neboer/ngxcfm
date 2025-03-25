@@ -1,14 +1,10 @@
 from fabric import Connection
 from tempfile import mkstemp
-import subprocess
 from os import makedirs, remove
 from shutil import rmtree
 from os.path import exists
-from time import sleep
-from tarfile import TarFile, TarInfo
-from log import logger
-from os_symlink import fix_symlinks_in_folder_recursive, current_os, relpath_to_style
-from os_tar import unpack_posix_tar, pack_dense_posix_tar, PosixTarConfig
+from .log import logger
+from .os_tar import unpack_posix_tar, pack_dense_posix_tar, PosixTarConfig
 
 
 def download_server_nginx_conf_to_local_dir(server_name: str, local_dir: str):

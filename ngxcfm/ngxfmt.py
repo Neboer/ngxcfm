@@ -3,9 +3,9 @@ import sys
 from os import walk, readlink, remove, symlink
 from os.path import exists, isfile, join, isabs, islink, relpath, dirname, basename
 from pathlib import Path
-from log import logger
+from .log import logger
 import posixpath as ix_path
-from os_symlink import relpath_to_style, current_os, get_files_relpath
+from .os_symlink import relpath_to_style, current_os, get_files_relpath
 
 
 def format_nginx_conf_folder(conf_folder_path: str):

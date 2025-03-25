@@ -9,11 +9,11 @@
 import argparse
 import sys
 
-from switch_conf import enable_nginx_conf, disable_nginx_conf
-from transfer_nginx_files import download_server_nginx_conf_to_local_dir, upload_local_nginx_conf_to_server
-from ngxfmt import format_nginx_conf_folder, fix_nginx_conf_folder_symlink
+from .switch_conf import enable_nginx_conf, disable_nginx_conf
+from .transfer_nginx_files import download_server_nginx_conf_to_local_dir, upload_local_nginx_conf_to_server
+from .ngxfmt import format_nginx_conf_folder, fix_nginx_conf_folder_symlink
 
-def main():
+def ngxcfm_main():
     parser = argparse.ArgumentParser(description='ngxcfm command-line tool')
     parser.add_argument('action', choices=['pull', 'push', 'format', 'relink', 'enable', 'disable'], help='Action to perform')
     parser.add_argument('source', help='Source for the action')
@@ -43,4 +43,4 @@ def main():
         sys.exit(1)
 
 if __name__ == '__main__':
-    main()
+    ngxcfm_main()

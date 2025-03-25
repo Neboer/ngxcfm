@@ -2,7 +2,7 @@
 from os import walk, readlink, remove, symlink
 from os.path import exists, isfile, join, isabs, islink, relpath, dirname, basename, normpath, sep
 import posixpath as ix_path
-from log import logger
+from .log import logger
 from typing import Literal
 
 

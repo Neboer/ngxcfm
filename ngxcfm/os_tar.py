@@ -1,10 +1,10 @@
 from tarfile import TarFile, TarInfo
 from typing import Literal, TypedDict
 
-from os_symlink import relpath_to_style, current_os
+from .os_symlink import relpath_to_style, current_os
 import posixpath as ix_path
 from os.path import isdir, isfile, join, split, splitext, isabs
-from log import logger
+from .log import logger
 
 
 class PosixTarConfig(TypedDict):

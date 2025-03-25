@@ -1,0 +1,19 @@
+[build-system]
+requires = ["setuptools"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "ngxcfm"
+version = "0.1.0"
+description = "A command-line tool for managing Nginx configurations"
+authors = [
+    { name = "Neboer", email = "rubinposter@gmail.com" },
+]
+license = "MIT"
+dependencies = [
+    "fabric",
+    "nginxfmt"
+]
+
+[project.scripts]
+ngxcfm = "ngxcfm.main:ngxcfm_main"
