@@ -13,10 +13,10 @@ def format_nginx_conf_folder(conf_folder_path: str):
     f = nginxfmt.Formatter()
     for root, dirs, files in walk(conf_folder_path):
         for file in files:
-            if isfile(file):
-                conf_file_to_format = join(root, file)
-                logger.info(f'formatting {conf_file_to_format}')
-                f.format_file(Path(conf_file_to_format))
+            file_path = join(root, file)
+            if isfile(file_path) and not islink(file_path):
+                logger.info(f'formatting {file_path}')
+                f.format_file(Path(file_path))
 
 
 # 对每个 sites-enabled 或 stream-enabled 中的文件都进行如下操作：
