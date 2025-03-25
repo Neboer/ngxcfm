@@ -9,6 +9,11 @@ from .os_tar import unpack_posix_tar, pack_dense_posix_tar, PosixTarConfig
 
 def download_server_nginx_conf_to_local_dir(server_name: str, local_dir: str):
     conn = Connection(server_name)
+    try:
+        conn.open()
+    except Exception as e:
+        logger.error(f'Failed to connect to {server_name}: {e}')
+        return
     if exists(local_dir):
         logger.warning(f'{local_dir} already exists, overwriting...')
         rmtree(local_dir)
@@ -31,6 +36,11 @@ def get_tar_config_from_server(server_name: str) -> PosixTarConfig:
 
 def upload_local_nginx_conf_to_server(server_name: str, local_dir: str):
     conn = Connection(server_name)
+    try:
+        conn.open()
+    except Exception as e:
+        logger.error(f'Failed to connect to {server_name}: {e}')
+        return
 
     def check_nginx_conf():
         return conn.run('nginx -t', warn=True)
@@ -48,3 +58,4 @@ def upload_local_nginx_conf_to_server(server_name: str, local_dir: str):
         conn.run('mv /etc/nginx.bak /etc/nginx')
     conn.run('rm /tmp/nginx-conf.tar', warn=True)
     conn.run('nginx -s reload')
+
