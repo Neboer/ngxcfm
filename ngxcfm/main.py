@@ -13,12 +13,14 @@ from ngxcfm.list_conf import get_all_conf_files, print_all_confs
 from .switch_conf import enable_nginx_conf, disable_nginx_conf
 from .transfer_nginx_files import download_server_nginx_conf_to_local_dir, upload_local_nginx_conf_to_server
 from .ngxfmt import format_nginx_conf_folder, fix_nginx_conf_folder_symlink
+from ngxcfm import __version__
 
 def ngxcfm_main():
     parser = argparse.ArgumentParser(description='ngxcfm command-line tool')
     parser.add_argument('action', choices=['pull', 'push', 'format', 'relink', 'enable', 'disable', 'list'], help='Action to perform')
     parser.add_argument('source', help='Source for the action')
     parser.add_argument('target', nargs='?', help='Target for the action')
+    parser.add_argument('--version', action='version', version=f'ngxcfm {__version__}')
     args = parser.parse_args()
 
     if args.action == 'pull':
