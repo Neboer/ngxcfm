@@ -12,7 +12,8 @@ authors = [
 license = "MIT"
 dependencies = [
     "fabric",
-    "nginxfmt"
+    "nginxfmt",
+    "colored"
 ]
 
 [project.scripts]

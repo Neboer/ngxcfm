@@ -1,4 +1,5 @@
 fabric
 nginxfmt
+colored
 #pypiwin32
 #pyuac
