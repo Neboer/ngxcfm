@@ -2,7 +2,7 @@
 
 ## 简介
 
-ngxcfm 是一个用于处理 Unix 系统中 Nginx 配置文件的跨平台软件。它提供了一系列命令行工具，用于从服务器下载 Nginx 配置文件、上传本地配置文件到服务器、格式化配置文件、修复符号链接以及启用或禁用特定的 Nginx 配置文件。
+ngxcfm 是一个用于处理 *ix 系统中 Nginx 配置文件的跨平台软件。它提供了一系列命令行工具，用于从服务器下载 Nginx 配置文件、上传本地配置文件到服务器、格式化配置文件、修复符号链接以及启用或禁用特定的 Nginx 配置文件。
 
 ## 功能
 
@@ -12,6 +12,7 @@ ngxcfm 是一个用于处理 Unix 系统中 Nginx 配置文件的跨平台软件
 - **relink**: 修复本地目录中的符号链接。
 - **enable**: 启用指定的 Nginx 配置文件。
 - **disable**: 禁用指定的 Nginx 配置文件。
+- **list**: 列出配置文件目录中的 Nginx 配置文件。
 
 ## 用法
 
@@ -65,10 +66,16 @@ ngxcfm [动作] [选项] [源] [目标]
    git clone https://github.com/yourusername/ngxcfm.git
    ```
 
-2. 安装依赖：
+2. 使用pip进行本地安装：
 
    ```sh
-   pip install -r requirements.txt
+   pip install .
+   ```
+
+3. 执行 `ngxcfm` 命令：
+
+   ```sh
+   ngxcfm
    ```
 
 ## 许可证
