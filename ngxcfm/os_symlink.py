@@ -50,11 +50,8 @@ def symlink_to_style(sym_file_location: str, target_style: Literal["win", "posix
     symlink(target_path, sym_file_location)
 
 
-def fix_symlinks_in_folder_recursive(folder_path: str, target_style: Literal["win", "posix"]):
+def recursive_change_symlink_style_in_dir(folder_path: str, target_style: Literal["win", "posix"]):
     assert_valid_style(target_style)
-    if target_style not in ['win', 'posix']:
-        logger.error("Unknown style, please specify 'win' or 'posix'.")
-        raise ValueError("Unknown style, please specify 'win' or 'posix'.")
     for root, dirs, files in walk(folder_path):
         for file in files:
             sym_file_location = join(root, file)
