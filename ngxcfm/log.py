@@ -1,4 +1,6 @@
 import logging
+import os
+
 
 class CustomFormatter(logging.Formatter):
 
@@ -28,7 +30,7 @@ logger.setLevel(logging.DEBUG)
 
 # create console handler with a higher log level
 ch = logging.StreamHandler()
-ch.setLevel(logging.DEBUG)
+ch.setLevel(logging.DEBUG if os.getenv('NGXCFM_DEBUG') == '1' else logging.INFO)
 
 ch.setFormatter(CustomFormatter())
 
