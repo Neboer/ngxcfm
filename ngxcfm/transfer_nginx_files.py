@@ -1,10 +1,10 @@
 from fabric import Connection
 from tempfile import mkstemp
-from os import makedirs, remove
+from os import makedirs
 from shutil import rmtree
 from os.path import exists
 from .log import logger
-from .os_tar import unpack_posix_tar, pack_dense_posix_tar, PosixTarConfig
+from .os_platform.os_tar import unpack_posix_tar, pack_dense_posix_tar, PosixTarConfig, default_tar_config
 
 
 def download_server_nginx_conf_to_local_dir(server_name: str, local_dir: str):
@@ -26,12 +26,7 @@ def download_server_nginx_conf_to_local_dir(server_name: str, local_dir: str):
 
 # TODO: get_tar_config_from_server 需要从服务器获取配置
 def get_tar_config_from_server(server_name: str) -> PosixTarConfig:
-    return {
-        'dir_mode': 0o755,
-        'file_mode': 0o644,
-        'owner_uid': 0,
-        'owner_gid': 0
-    }
+    return default_tar_config
 
 
 def upload_local_nginx_conf_to_server(server_name: str, local_dir: str):

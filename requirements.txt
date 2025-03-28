@@ -1,5 +1,6 @@
 fabric
 nginxfmt
 colored
+pydos2unix
 #pypiwin32
 #pyuac

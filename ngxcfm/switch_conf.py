@@ -1,8 +1,8 @@
 import sys
 from os import symlink, remove, makedirs
-from os.path import join, dirname, basename, exists, islink, relpath
+from os.path import join, dirname, basename, exists, islink
 from .log import logger
-from .os_symlink import relpath_to_style, current_os, get_files_relpath
+from .os_platform.os_symlink import get_files_relpath
 
 # 给定一个 *-enabled 的目标，返回对应的 *-available 目标。
 def get_available_conf_path(enabled_conf_file_path: str):

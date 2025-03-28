@@ -1,12 +1,13 @@
 # format nginx config folder.
 import sys
 from os import walk, readlink, remove, symlink
-from os.path import exists, isfile, join, isabs, islink, isdir, relpath, dirname, basename
+from os.path import exists, isfile, join, islink, isdir, dirname, basename
 from pathlib import Path
 from shutil import rmtree, move
 from .log import logger
 import posixpath as ix_path
-from .os_symlink import relpath_to_style, current_os, get_files_relpath
+from .os_platform.os_symlink import relpath_to_style, get_files_relpath
+from .os_platform._os_style import current_os
 from .switch_conf import get_available_conf_path, enable_nginx_conf
 
 def format_nginx_conf_folder(conf_folder_path: str):

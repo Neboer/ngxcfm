@@ -36,7 +36,8 @@ license = "MIT"
 dependencies = [
     "fabric",
     "nginxfmt",
-    "colored"
+    "colored",
+    "pydos2unix"
 ]
 
 [project.scripts]

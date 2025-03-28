@@ -9,10 +9,10 @@
 import argparse
 import sys
 
-from docutils.nodes import option_argument
-
-from ngxcfm.list_conf import get_all_conf_files, print_all_confs
-from ngxcfm.os_symlink import recursive_change_symlink_style_in_dir
+from .list_conf import get_all_conf_files, print_all_confs
+from .os_platform.os_symlink import recursive_convert_symlink_style_in_dir
+from .os_platform.os_file import recursive_convert_line_endings_style_in_dir
+from .os_platform.os_tar import pack_dense_posix_tar, unpack_posix_tar
 from .switch_conf import enable_nginx_conf, disable_nginx_conf
 from .transfer_nginx_files import download_server_nginx_conf_to_local_dir, upload_local_nginx_conf_to_server
 from .ngxfmt import format_nginx_conf_folder, fix_nginx_conf_folder_symlink
@@ -20,7 +20,7 @@ from ngxcfm import __version__
 
 def ngxcfm_main():
     parser = argparse.ArgumentParser(description='ngxcfm command-line tool')
-    parser.add_argument('action', choices=['pull', 'push', 'format', 'relink', 'enable', 'disable', 'list', 'to-unix', 'to-win'], help='Action to perform')
+    parser.add_argument('action', choices=['pull', 'push', 'format', 'relink', 'enable', 'disable', 'list', 'to-unix', 'to-win', 'tar', 'untar'], help='Action to perform')
     parser.add_argument('source', help='Source for the action')
     parser.add_argument('target', nargs='?', help='Target for the action')
     parser.add_argument('--version', action='version', version=f'ngxcfm {__version__}')
@@ -47,9 +47,15 @@ def ngxcfm_main():
     elif args.action == 'list':
         print_all_confs(get_all_conf_files(args.source))
     elif args.action == 'to-unix':
-        recursive_change_symlink_style_in_dir(args.source, 'posix')
+        recursive_convert_symlink_style_in_dir(args.source, 'posix')
+        recursive_convert_line_endings_style_in_dir(args.source, 'posix')
     elif args.action == 'to-win':
-        recursive_change_symlink_style_in_dir(args.source, 'win')
+        recursive_convert_symlink_style_in_dir(args.source, 'win')
+        recursive_convert_line_endings_style_in_dir(args.source, 'win')
+    elif args.action == 'tar':
+        pack_dense_posix_tar(args.source, args.target)
+    elif args.action == 'untar':
+        unpack_posix_tar(args.source, args.target)
     else:
         print("Unknown action")
         sys.exit(1)
