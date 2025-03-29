@@ -3,6 +3,7 @@ from os.path import isdir, isfile, join, split, splitext, islink
 from typing import Literal
 
 from ._os_style import optional_style_default_current_os
+from .os_checkdir import ensure_folders
 from ..log import logger
 from pydos2unix import dos2unix, unix2dos
 
@@ -12,6 +13,7 @@ _text_chars = bytearray({7, 8, 9, 10, 12, 13, 27} | set(range(0x20, 0x100)) - {0
 def is_content_binary(input_content: bytes) -> bool:
     return bool(input_content.translate(None, _text_chars))
 
+@ensure_folders(["dir_path"])
 @optional_style_default_current_os
 def recursive_convert_line_endings_style_in_dir(dir_path: str, style: Literal["win", "posix"]):
     for root, dirs, files in walk(dir_path):

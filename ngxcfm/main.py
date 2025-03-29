@@ -15,7 +15,7 @@ from .os_platform.os_file import recursive_convert_line_endings_style_in_dir
 from .os_platform.os_tar import pack_dense_posix_tar, unpack_posix_tar
 from .switch_conf import enable_nginx_conf, disable_nginx_conf
 from .transfer_nginx_files import download_server_nginx_conf_to_local_dir, upload_local_nginx_conf_to_server
-from .ngxfmt import format_nginx_conf_folder, fix_nginx_conf_folder_symlink
+from .format import format_nginx_conf_folder, fix_nginx_conf_folder_symlink
 from ngxcfm import __version__
 
 def ngxcfm_main():
@@ -38,6 +38,7 @@ def ngxcfm_main():
         upload_local_nginx_conf_to_server(args.target, args.source)
     elif args.action == 'format':
         format_nginx_conf_folder(args.source)
+        # recursive_convert_line_endings_style_in_dir(args.source) # format will ruin the line endings.
     elif args.action == 'relink':
         fix_nginx_conf_folder_symlink(args.source)
     elif args.action == 'enable':

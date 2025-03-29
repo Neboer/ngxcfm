@@ -3,6 +3,8 @@ from os import walk, readlink, remove, symlink
 from os.path import join, islink, relpath, dirname, normpath
 from typing import Literal
 from ._os_style import current_os, assert_valid_style, optional_style_default_current_os
+from .os_checkdir import ensure_folders
+
 
 @optional_style_default_current_os
 def relpath_to_style(path: str, style: Literal["win", "posix"]):
@@ -32,6 +34,7 @@ def symlink_to_style(sym_file_location: str, style: Literal["win", "posix"]):
     remove(sym_file_location)
     symlink(target_path, sym_file_location)
 
+@ensure_folders(["folder_path"])
 @optional_style_default_current_os
 def recursive_convert_symlink_style_in_dir(folder_path: str, style: Literal["win", "posix"]):
     for root, dirs, files in walk(folder_path):

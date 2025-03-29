@@ -4,6 +4,7 @@ from os import makedirs
 from shutil import rmtree
 from os.path import exists
 from .log import logger
+from .os_platform.os_checkdir import ensure_folders
 from .os_platform.os_tar import unpack_posix_tar, pack_dense_posix_tar, PosixTarConfig, default_tar_config
 
 
@@ -28,7 +29,7 @@ def download_server_nginx_conf_to_local_dir(server_name: str, local_dir: str):
 def get_tar_config_from_server(server_name: str) -> PosixTarConfig:
     return default_tar_config
 
-
+@ensure_folders(["local_dir"])
 def upload_local_nginx_conf_to_server(server_name: str, local_dir: str):
     conn = Connection(server_name)
     try:

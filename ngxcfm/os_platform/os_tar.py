@@ -1,6 +1,7 @@
 from tarfile import TarFile, TarInfo
 from typing import Literal, TypedDict
 
+from .os_checkdir import ensure_folders
 from .os_symlink import relpath_to_style
 from ._os_style import current_os
 import posixpath as ix_path
@@ -69,6 +70,7 @@ def unpack_posix_tar(tar_file_path: str, target_dir: str):
 
 
 # 将一个文件夹拷贝到临时文件夹，执行recursive_change_line_endings_style_in_dir，然后打包成tar文件。
+@ensure_folders(["source_dir"])
 def pack_dense_posix_tar(source_dir: str, tar_file_path: str, tar_config=None):
     if tar_config is None:
         tar_config = default_tar_config

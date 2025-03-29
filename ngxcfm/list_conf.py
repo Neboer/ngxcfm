@@ -3,6 +3,7 @@
 from os import symlink, remove, makedirs, walk, listdir
 from os.path import join, dirname, basename, exists, islink, relpath, isdir
 from .log import logger
+from .os_platform.os_checkdir import ensure_folders
 from .switch_conf import get_enabled_conf_path
 from typing import TypedDict
 from colored import Fore, Back, Style
@@ -16,7 +17,7 @@ class ConfFile(TypedDict):
 def list_all_folders(parent_dir_path: str) -> list:
     return [x for x in listdir(parent_dir_path) if isdir(join(parent_dir_path, x))]
 
-
+@ensure_folders(["conf_dir"])
 def get_all_conf_files(conf_dir: str) -> dict[str, list[ConfFile]]:
     conf_files: dict[str, list[ConfFile]] = {}
     available_conf_dirs = [join(conf_dir, x) for x in list_all_folders(conf_dir) if x.endswith('-available')]

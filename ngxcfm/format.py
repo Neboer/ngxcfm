@@ -4,15 +4,16 @@ from os import walk, readlink, remove, symlink
 from os.path import exists, isfile, join, islink, isdir, dirname, basename
 from pathlib import Path
 from shutil import rmtree, move
+
+from ngxcfm.os_platform.os_checkdir import ensure_folders
 from .log import logger
 import posixpath as ix_path
 from .os_platform.os_symlink import relpath_to_style, get_files_relpath
-from .os_platform._os_style import current_os
 from .switch_conf import get_available_conf_path, enable_nginx_conf
 
 def format_nginx_conf_folder(conf_folder_path: str):
     import nginxfmt
-    f = nginxfmt.Formatter()
+    f = nginxfmt.Formatter(logger=logger)
     for root, dirs, files in walk(conf_folder_path):
         for file in files:
             file_path = join(root, file)
@@ -23,6 +24,7 @@ def format_nginx_conf_folder(conf_folder_path: str):
 
 # 对每个 *-enabled 中的文件都进行如下操作：
 # 两个路径都必须是绝对路径
+@ensure_folders(["local_conf_folder_path"])
 def check_and_try_to_fix_a_symlink_file(local_conf_file_path: str, local_conf_folder_path: str):
     if islink(local_conf_file_path):
         # 如果是符号链接，将指向的绝对路径转换成相对路径，并判断所指文件是否存在
@@ -31,7 +33,7 @@ def check_and_try_to_fix_a_symlink_file(local_conf_file_path: str, local_conf_fo
             logger.info(f'{local_conf_file_path} points to a abs location {conf_file_target}, try to fix it.')
             try:
                 conf_file_target_normalized = ix_path.normpath(conf_file_target)
-                local_conf_file_target = relpath_to_style(conf_file_target_normalized.replace('/etc/nginx', local_conf_folder_path), current_os())
+                local_conf_file_target = relpath_to_style(conf_file_target_normalized.replace('/etc/nginx', local_conf_folder_path))
                 if exists(local_conf_file_target):
                     # 指向了一个存在的配置文件，更新符号链接所指为相对路径。
                     # relative_path = relpath(local_conf_file_target, dirname(local_conf_file_path))
@@ -75,7 +77,7 @@ def check_and_try_to_fix_a_symlink_file(local_conf_file_path: str, local_conf_fo
         logger.error(f'{local_conf_file_path} is neither a symlink file nor a regular file, skip it.')
         return
 
-
+@ensure_folders(["local_conf_folder_path"])
 def fix_nginx_conf_folder_symlink(local_conf_folder_path: str):
     # 重点检查 *-available 中的配置文件是否符合规范
     for root, dirs, files in walk(local_conf_folder_path):

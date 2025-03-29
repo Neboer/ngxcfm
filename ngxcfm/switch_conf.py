@@ -1,6 +1,8 @@
 import sys
 from os import symlink, remove, makedirs
 from os.path import join, dirname, basename, exists, islink
+
+from ngxcfm.os_platform.os_checkdir import ensure_folders
 from .log import logger
 from .os_platform.os_symlink import get_files_relpath
 
@@ -25,7 +27,6 @@ def get_enabled_conf_path(available_conf_file_path: str):
     available_file_name = basename(available_conf_file_path)
     enabled_file_path = join(enabled_dir, available_file_name)
     return enabled_file_path
-
 
 def manage_nginx_conf(conf_file_path: str, action: str):
     enabled_file_path = get_enabled_conf_path(conf_file_path)
