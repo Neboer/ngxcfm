@@ -15,7 +15,7 @@ def is_content_binary(input_content: bytes) -> bool:
 
 @ensure_folders(["dir_path"])
 @optional_style_default_current_os
-def recursive_convert_line_endings_style_in_dir(dir_path: str, style: Literal["win", "posix"]):
+def recursive_convert_line_endings_style_in_dir(dir_path: str, style: Literal["win", "posix"] = None):
     for root, dirs, files in walk(dir_path):
         for file in files:
             file_path = path.join(root, file)
