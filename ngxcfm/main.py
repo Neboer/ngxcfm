@@ -38,7 +38,7 @@ def ngxcfm_main():
         upload_local_nginx_conf_to_server(args.target, args.source)
     elif args.action == 'format':
         format_nginx_conf_folder(args.source)
-        # recursive_convert_line_endings_style_in_dir(args.source) # format will ruin the line endings.
+        recursive_convert_line_endings_style_in_dir(args.source) # format will ruin the line endings.
     elif args.action == 'relink':
         fix_nginx_conf_folder_symlink(args.source)
     elif args.action == 'enable':
